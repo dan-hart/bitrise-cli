@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A6CDBCE2808C0D600C6F28D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBCD2808C0D600C6F28D /* main.swift */; };
+		5A6CDBD62808C0E800C6F28D /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6CDBD52808C0E800C6F28D /* ArgumentParser */; };
+		5A6CDBD92808C0FE00C6F28D /* BitriseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6CDBD82808C0FE00C6F28D /* BitriseSwift */; };
+		5A6CDBDC2808C12700C6F28D /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6CDBDB2808C12700C6F28D /* KeychainAccess */; };
+		5A6CDBDE2808C15E00C6F28D /* bitrise-cli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBDD2808C15E00C6F28D /* bitrise-cli.swift */; };
+		5A6CDBE12808C33000C6F28D /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6CDBE02808C33000C6F28D /* FileKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		5A6CDBCA2808C0D600C6F28D /* bitrise-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "bitrise-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A6CDBCD2808C0D600C6F28D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5A6CDBDD2808C15E00C6F28D /* bitrise-cli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "bitrise-cli.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +36,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A6CDBD62808C0E800C6F28D /* ArgumentParser in Frameworks */,
+				5A6CDBD92808C0FE00C6F28D /* BitriseSwift in Frameworks */,
+				5A6CDBDC2808C12700C6F28D /* KeychainAccess in Frameworks */,
+				5A6CDBE12808C33000C6F28D /* FileKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +65,7 @@
 		5A6CDBCC2808C0D600C6F28D /* bitrise-cli */ = {
 			isa = PBXGroup;
 			children = (
-				5A6CDBCD2808C0D600C6F28D /* main.swift */,
+				5A6CDBDD2808C15E00C6F28D /* bitrise-cli.swift */,
 			);
 			path = "bitrise-cli";
 			sourceTree = "<group>";
@@ -78,6 +86,12 @@
 			dependencies = (
 			);
 			name = "bitrise-cli";
+			packageProductDependencies = (
+				5A6CDBD52808C0E800C6F28D /* ArgumentParser */,
+				5A6CDBD82808C0FE00C6F28D /* BitriseSwift */,
+				5A6CDBDB2808C12700C6F28D /* KeychainAccess */,
+				5A6CDBE02808C33000C6F28D /* FileKit */,
+			);
 			productName = "bitrise-cli";
 			productReference = 5A6CDBCA2808C0D600C6F28D /* bitrise-cli */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +120,12 @@
 				Base,
 			);
 			mainGroup = 5A6CDBC12808C0D600C6F28D;
+			packageReferences = (
+				5A6CDBD42808C0E800C6F28D /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				5A6CDBD72808C0FE00C6F28D /* XCRemoteSwiftPackageReference "BitriseSwift" */,
+				5A6CDBDA2808C12700C6F28D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				5A6CDBDF2808C33000C6F28D /* XCRemoteSwiftPackageReference "FileKit" */,
+			);
 			productRefGroup = 5A6CDBCB2808C0D600C6F28D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -120,7 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A6CDBCE2808C0D600C6F28D /* main.swift in Sources */,
+				5A6CDBDE2808C15E00C6F28D /* bitrise-cli.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +304,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5A6CDBD42808C0E800C6F28D /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		5A6CDBD72808C0FE00C6F28D /* XCRemoteSwiftPackageReference "BitriseSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dan-hart/BitriseSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		5A6CDBDA2808C12700C6F28D /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		5A6CDBDF2808C33000C6F28D /* XCRemoteSwiftPackageReference "FileKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nvzqz/FileKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5A6CDBD52808C0E800C6F28D /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A6CDBD42808C0E800C6F28D /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+		5A6CDBD82808C0FE00C6F28D /* BitriseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A6CDBD72808C0FE00C6F28D /* XCRemoteSwiftPackageReference "BitriseSwift" */;
+			productName = BitriseSwift;
+		};
+		5A6CDBDB2808C12700C6F28D /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A6CDBDA2808C12700C6F28D /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		5A6CDBE02808C33000C6F28D /* FileKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A6CDBDF2808C33000C6F28D /* XCRemoteSwiftPackageReference "FileKit" */;
+			productName = FileKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5A6CDBC22808C0D600C6F28D /* Project object */;
 }
