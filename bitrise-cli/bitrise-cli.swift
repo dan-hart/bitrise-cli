@@ -12,24 +12,8 @@ import ArgumentParser
 struct bitrise_cli: ParsableCommand {
     static let _commandName: String = "bitrise-cli"
     static let configuration = CommandConfiguration(abstract: "Manage Bitrise.io operations")
-
-    enum Action: String, ExpressibleByArgument, CaseIterable {
-        init?(argument: String) {
-            let value = argument.lowercased()
-            for m in bitrise_cli.Action.allCases {
-                if value == m.rawValue.lowercased() {
-                    self = m
-                    return
-                }
-            }
-            
-            return nil
-        }
-        
-        case setup
-    }
     
-    @Option(name: [.short, .customLong("action")], help: "\(bitrise_cli.Action.allCases.map({$0.rawValue}).joined(separator: ", "))")
+    @Option(name: [.short, .customLong("action")], help: "\(Action.allCases.map({$0.rawValue}).joined(separator: ", "))")
         var action: Action = .setup
     
     @Flag(name: .long, help: "Print verbose updates.")
