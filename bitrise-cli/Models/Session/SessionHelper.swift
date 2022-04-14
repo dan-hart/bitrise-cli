@@ -13,14 +13,31 @@ import SwiftUI
 class SessionHelper: SessionHelping {
     static var shared: SessionHelping = SessionHelper()
     
+    var verbose = false
     var keychainKeyIdentifier = "BITRISE_API_TOKEN"
-    var isAuthenticated = false
+    var isAuthenticated = false {
+        didSet {
+            log("Set Authenticated: \(isAuthenticated)")
+        }
+    }
     
-    var client: APIClient?
-    var user: V0UserProfileDataModel?
+    var client: APIClient? {
+        didSet {
+            log("Set Client: \(client?.baseURL ?? "nil")")
+        }
+    }
+    var user: V0UserProfileDataModel? {
+        didSet {
+            log("Set User: \(user?.username ?? "nil")")
+        }
+    }
     
     // MARK: - App Storage
-    @AppStorage("selectedAppSlug") var selectedAppSlug: String?
+    @AppStorage("selectedAppSlug") var selectedAppSlug: String? {
+        didSet {
+            log("Set selectedAppSlug: \(selectedAppSlug ?? "nil")")
+        }
+    }
     
     // MARK: - Computed
     var bundleID: String {
@@ -43,22 +60,30 @@ class SessionHelper: SessionHelping {
     
     // MARK: - Methods
     func invalidateSession() {
+        log("Invalidating session...")
         keychain[keychainKeyIdentifier] = nil
+        log("Cleared keychain")
         isAuthenticated = false
+        client = nil
+        user = nil
+    }
+    
+    func clearStoredData() {
+        log("Clearing stored data...")
+        selectedAppSlug = nil
+        token = nil
     }
 
-    func startSession(with optionalToken: String? = nil) {
-        if let token = optionalToken {
-            // Continue existing session
-            authenticate(using: token)
-        } else {
-            authenticate(using: token)
-        }
+    func startSession(with optionalToken: String? = nil) async {
+        log("Starting session")
+        await authenticate(using: optionalToken ?? token ?? "")
     }
 
     // MARK: - Authentication
-    private func authenticate(using token: String?) {
+    private func authenticate(using token: String?) async {
         guard let token = token, !token.isEmpty else {
+            isAuthenticated = false
+            log("token is nil or empty, skipping authentication")
             return
         }
 
@@ -68,32 +93,36 @@ class SessionHelper: SessionHelping {
         BitriseSwift.safeArrayDecoding = true
         BitriseSwift.safeOptionalDecoding = true
         
-        client?.makeRequest(getUserRequest) { apiResponse in
-            switch apiResponse.result {
-            case .success(let response):
-                self.isAuthenticated = true
-                self.user = response.success?.data
-                print("Authenticated as: \(self.user?.username ?? "Unknown Username")")
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.isAuthenticated = false
+        let response = await make(request: getUserRequest)
+        switch response.result {
+        case .success(let response):
+            self.isAuthenticated = true
+            self.token = token
+            self.user = response.success?.data
+            print("🛰 Authenticated as: \(self.user?.username ?? "Unknown Username")")
+        case .failure(let error):
+            print(error.localizedDescription)
+            log("\(error)")
+            self.isAuthenticated = false
+            self.token = nil
+        }
+    }
+    
+    // MARK: - Helper Methods
+    func fetch<T>(_ apiRequest: APIRequest<T>) async -> T.SuccessType? {
+        if !isAuthenticated { return nil }
+        let response = await make(request: apiRequest)
+        return handle(response)
+    }
+    
+    func make<T>(request: APIRequest<T>) async -> APIResponse<T> {
+        return await withCheckedContinuation { continuation in
+            self.client?.makeRequest(request) { response in
+                continuation.resume(returning: response)
             }
         }
     }
     
-    // MARK: - Operations
-    func getApps() {
-        if !isAuthenticated { return }
-        let request = BitriseSwift.Application.AppList.Request()
-        client?.makeRequest(request, complete: { apiResponse in
-            let value = self.handle(apiResponse)
-            for app in value?.data ?? [] {
-                print((app.title ?? "Title") + ": " + (app.slug ?? "Slug"))
-            }
-        })
-    }
-    
-    // MARK: - Helper Methods
     func handle<T>(_ response: APIResponse<T>) -> T.SuccessType? {
         switch response.result {
         case .success(let value):
@@ -101,13 +130,19 @@ class SessionHelper: SessionHelping {
         case .failure(let error):
             let stringData = String(data: response.data ?? Data(), encoding: .utf8)
             let responseCode = response.urlResponse?.statusCode ?? -1
-            print("Error")
-            print("Data: \(stringData ?? "Empty")")
-            print("Response Code: \(responseCode)")
-            print("Error: \(error)")
+            log("Error")
+            log("Data: \(stringData ?? "Empty")")
+            log("Response Code: \(responseCode)")
+            log("Error: \(error)")
             print(error.localizedDescription)
         }
         
         return nil
+    }
+    
+    func log(_ message: String?) {
+        if let logMessage = message {
+            if verbose { print("\(SessionHelper.self)" + ": " + logMessage) }
+        }
     }
 }

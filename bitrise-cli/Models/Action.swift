@@ -21,4 +21,5 @@ enum Action: String, ExpressibleByArgument, CaseIterable {
     }
     
     case setup
+    case clearStoredData
 }
