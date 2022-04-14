@@ -13,6 +13,9 @@
 		5A6CDBDE2808C15E00C6F28D /* bitrise-cli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBDD2808C15E00C6F28D /* bitrise-cli.swift */; };
 		5A6CDBE12808C33000C6F28D /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6CDBE02808C33000C6F28D /* FileKit */; };
 		5A6CDBE42808C39300C6F28D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBE32808C39300C6F28D /* Action.swift */; };
+		5A6CDBE62808C48700C6F28D /* SessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBE52808C48700C6F28D /* SessionHelper.swift */; };
+		5A6CDBE92808C4A400C6F28D /* SessionHelping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBE82808C4A400C6F28D /* SessionHelping.swift */; };
+		5A6CDBEB2808C57100C6F28D /* SessionHelperError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CDBEA2808C57100C6F28D /* SessionHelperError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +34,9 @@
 		5A6CDBCA2808C0D600C6F28D /* bitrise-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "bitrise-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A6CDBDD2808C15E00C6F28D /* bitrise-cli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "bitrise-cli.swift"; sourceTree = "<group>"; };
 		5A6CDBE32808C39300C6F28D /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		5A6CDBE52808C48700C6F28D /* SessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHelper.swift; sourceTree = "<group>"; };
+		5A6CDBE82808C4A400C6F28D /* SessionHelping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHelping.swift; sourceTree = "<group>"; };
+		5A6CDBEA2808C57100C6F28D /* SessionHelperError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHelperError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +82,20 @@
 		5A6CDBE22808C38100C6F28D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5A6CDBE72808C49500C6F28D /* Session */,
 				5A6CDBE32808C39300C6F28D /* Action.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		5A6CDBE72808C49500C6F28D /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				5A6CDBE52808C48700C6F28D /* SessionHelper.swift */,
+				5A6CDBE82808C4A400C6F28D /* SessionHelping.swift */,
+				5A6CDBEA2808C57100C6F28D /* SessionHelperError.swift */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +169,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A6CDBDE2808C15E00C6F28D /* bitrise-cli.swift in Sources */,
+				5A6CDBEB2808C57100C6F28D /* SessionHelperError.swift in Sources */,
+				5A6CDBE62808C48700C6F28D /* SessionHelper.swift in Sources */,
+				5A6CDBE92808C4A400C6F28D /* SessionHelping.swift in Sources */,
 				5A6CDBE42808C39300C6F28D /* Action.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
